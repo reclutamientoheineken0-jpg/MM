@@ -109,7 +109,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         if (newMemoData.type === 'Llamada de atención') {
           newBadge = '1 Llamada';
           newStatus = 'Sancionado';
-        } else if (newMemoData.type === 'Días no remunerado' || newMemoData.type === 'Día no remunerado') {
+        } else if (newMemoData.type === 'Día no remunerado') {
           newBadge = 'Día No Remunerado';
           newStatus = 'Sancionado';
         } else if (newMemoData.type === 'Despido') {

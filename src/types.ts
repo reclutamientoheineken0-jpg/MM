@@ -64,5 +64,5 @@ export interface ZoneSummary {
   totalPersonal: number;
   attendanceAvg: string;
   salesGoal: string;
-  status: 'Conforme' | 'En Observación' | 'Crítico';
+  status: 'Conforme' | 'En Observación' | 'Crítico' | 'Sin Registros';
 }

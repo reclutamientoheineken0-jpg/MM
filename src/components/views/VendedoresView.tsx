@@ -262,59 +262,35 @@ export const VendedoresView: React.FC<VendedoresViewProps> = ({
           </table>
         </div>
 
-        {/* Pagination matching Image 4 */}
-        <div className="p-4 border-t border-gray-100 flex items-center justify-center gap-2 text-xs font-bold text-gray-600">
-          <button 
-            disabled={currentPageNum === 1}
-            onClick={() => setCurrentPageNum(p => Math.max(1, p - 1))}
-            className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-40"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+        {/* Pagination */}
+        {sortedReps.length > 0 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-center gap-2 text-xs font-bold text-gray-600">
+            <button 
+              disabled={currentPageNum === 1}
+              onClick={() => setCurrentPageNum(p => Math.max(1, p - 1))}
+              className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-40"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
 
-          <button 
-            onClick={() => setCurrentPageNum(1)}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-              currentPageNum === 1 ? 'bg-[#006600] text-white' : 'hover:bg-gray-100'
-            }`}
-          >
-            1
-          </button>
-          
-          <button 
-            onClick={() => setCurrentPageNum(2)}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-              currentPageNum === 2 ? 'bg-[#006600] text-white' : 'hover:bg-gray-100'
-            }`}
-          >
-            2
-          </button>
+            <button 
+              onClick={() => setCurrentPageNum(1)}
+              className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                currentPageNum === 1 ? 'bg-[#006600] text-white' : 'hover:bg-gray-100'
+              }`}
+            >
+              1
+            </button>
 
-          <button 
-            onClick={() => setCurrentPageNum(3)}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-              currentPageNum === 3 ? 'bg-[#006600] text-white' : 'hover:bg-gray-100'
-            }`}
-          >
-            3
-          </button>
-
-          <span className="px-1 text-gray-400">...</span>
-
-          <button 
-            onClick={() => setCurrentPageNum(250)}
-            className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-100"
-          >
-            250
-          </button>
-
-          <button 
-            onClick={() => setCurrentPageNum(p => p + 1)}
-            className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50"
-          >
-            ChevronRight
-          </button>
-        </div>
+            <button 
+              disabled={true}
+              onClick={() => setCurrentPageNum(p => p + 1)}
+              className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-40"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
 
     </div>

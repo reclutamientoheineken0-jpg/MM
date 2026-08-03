@@ -26,7 +26,7 @@ export const RegistroView: React.FC = () => {
   } = useApp();
 
   const [selectedRepId, setSelectedRepId] = useState<string>(preselectedRep?.id || '');
-  const [incidentDate, setIncidentDate] = useState<string>('2026-03-08');
+  const [incidentDate, setIncidentDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
   const [memoType, setMemoType] = useState<MemoType>(preselectedMemoType || 'Llamada de atención');
   const [description, setDescription] = useState<string>('');
   const [attachedFile, setAttachedFile] = useState<{ name: string; size: string } | null>(null);

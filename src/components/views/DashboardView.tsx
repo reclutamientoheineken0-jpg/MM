@@ -13,9 +13,7 @@ import {
   TrendingUp, 
   Trash2, 
   Eye, 
-  ArrowRight,
-  RefreshCw,
-  Info
+  ArrowRight
 } from 'lucide-react';
 
 interface DashboardViewProps {
@@ -56,29 +54,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onViewMemoDetail }
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto space-y-6">
       
-      {/* Top Banner Control to toggle Demo Data or Empty State */}
-      <div className="bg-[#f2f4f6] border border-[#c5c6cd]/50 rounded-xl p-3 px-4 flex flex-wrap items-center justify-between gap-3 text-xs">
-        <div className="flex items-center gap-2 text-gray-700 font-medium">
-          <Info className="w-4 h-4 text-[#006600]" />
-          <span>Simulador de Entorno Corporativo Heineken:</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button 
-            onClick={resetDemoData}
-            className="px-3 py-1.5 rounded-lg bg-white border border-gray-300 font-bold text-[#006600] hover:bg-green-50 transition-colors flex items-center gap-1.5 shadow-2xs"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            Cargar Datos con Registro (Demo)
-          </button>
-          <button 
-            onClick={setEmptyStateData}
-            className="px-3 py-1.5 rounded-lg bg-white border border-gray-300 font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
-          >
-            Vista en Blanco (0 Memos)
-          </button>
-        </div>
-      </div>
-
       {/* Header & Main Controls */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
@@ -155,7 +130,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onViewMemoDetail }
             </div>
             <div className="flex items-center gap-1 text-xs text-gray-500 mt-2">
               <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-              <span>+12% este mes</span>
+              <span>{totalMemos > 0 ? '+12% este mes' : '0 registros registrados'}</span>
             </div>
           </div>
         </div>
@@ -175,7 +150,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onViewMemoDetail }
               {llamadasAtencion}
             </div>
             <p className="text-xs text-gray-500 mt-2">
-              {totalMemos > 0 ? `${Math.round((llamadasAtencion / totalMemos) * 100)}% del total acumulado` : '65% del total acumulado'}
+              {totalMemos > 0 ? `${Math.round((llamadasAtencion / totalMemos) * 100)}% del total acumulado` : '0% del total acumulado'}
             </p>
           </div>
         </div>
