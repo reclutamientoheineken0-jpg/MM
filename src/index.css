@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', sans-serif;
+    --font-heading: 'Hanken Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+.font-heading {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.empty-state-pattern {
+  background-image: radial-gradient(#becab6 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5c6cd;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6f7b69;
+}

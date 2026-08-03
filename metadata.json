@@ -1,0 +1,8 @@
+{
+  "name": "Remix Gestión Corporativa Heineken - HR Admin",
+  "description": "Portal centralizado de administración de comunicados, gestión de fuerza de ventas y registro de memorándums disciplinarios de Heineken.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
