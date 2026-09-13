@@ -13,10 +13,22 @@ import {
   HelpCircle 
 } from 'lucide-react';
 import { HeinekenLogo } from '../common/HeinekenLogo';
+import { supabase } from '../../lib/supabase';
 
 interface LoginViewProps {
   onOpenITSupport?: () => void;
   onOpenGuiaUso?: () => void;
+}
+
+interface LoginProfile {
+  id: string;
+  employee_id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  title: string;
+  avatar: string;
+  zone: string;
 }
 
 export const LoginView: React.FC<LoginViewProps> = ({ onOpenITSupport, onOpenGuiaUso }) => {
@@ -28,7 +40,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onOpenITSupport, onOpenGui
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!employeeId.trim()) {
@@ -36,18 +48,44 @@ export const LoginView: React.FC<LoginViewProps> = ({ onOpenITSupport, onOpenGui
       return;
     }
 
-    setCurrentUser({
-      id: 'usr-active-1',
-      employeeId: employeeId.trim(),
-      name: selectedRole === 'Administrador' ? 'Salesforce HR Admin' : 'Carlos Cliente',
-      role: selectedRole,
-      title: selectedRole === 'Administrador' ? 'Administrador' : 'Cliente',
-      email: selectedRole === 'Administrador' ? 'admin.hr@heineken.com' : 'cliente@heineken.com',
-      avatar: '',
-      zone: 'Nacional'
+    const normalizedEmployeeId = employeeId.trim().toUpperCase();
+    const { data: rawProfile, error: profileError } = await supabase
+      .rpc('get_login_profile', { p_employee_id: normalizedEmployeeId })
+      .maybeSingle();
+    const profile = rawProfile as LoginProfile | null;
+
+    if (profileError || !profile) {
+      showToast('No existe un usuario asociado a ese ID de empleado.', 'error');
+      return;
+    }
+
+    if (profile.role !== selectedRole) {
+      showToast(`Este usuario está configurado como ${profile.role}. Seleccione el rol correcto.`, 'error');
+      return;
+    }
+
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: profile.email,
+      password
     });
 
-    showToast(`Bienvenido al Portal de Gestión Corporativa Heineken (${selectedRole})`);
+    if (authError) {
+      showToast('Credenciales incorrectas. Verifique su contraseña.', 'error');
+      return;
+    }
+
+    setCurrentUser({
+      id: profile.id,
+      employeeId: profile.employee_id,
+      name: profile.name,
+      role: profile.role,
+      title: profile.title,
+      email: profile.email,
+      avatar: profile.avatar || '',
+      zone: profile.zone
+    });
+    if (!rememberMe) localStorage.removeItem('heineken:session:v1');
+    showToast(`Bienvenido al Portal de Gestión Corporativa Heineken (${profile.role})`);
     setCurrentPage('dashboard');
   };
 
